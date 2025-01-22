@@ -1,6 +1,5 @@
-from pydantic import BaseModel,HttpUrl
+from pydantic import BaseModel, HttpUrl
 from typing import List, Optional, Dict, Any
-
 
 
 class LoginResponse(BaseModel):
@@ -9,42 +8,42 @@ class LoginResponse(BaseModel):
 
 
 class UserInfo(BaseModel):
-    is_staff: bool
-    user_id: int
-    email: str
-    phone: str
-    business_admin: bool
-    team_admin: bool
-    business_student: bool
+    is_staff: bool = False
+    user_id: int | None = None
+    email: str | None = None
+    phone: str | None = None
+    business_admin: bool = False
+    team_admin: bool = False
+    business_student: bool = False
 
 
 class Organization(BaseModel):
-    organization_id: int
-    name: str
-    image_url: HttpUrl
-    slug: str
+    organization_id: int | None = None
+    name: str | None = None
+    image_url: HttpUrl | None = None
+    slug: str | None = None
 
 
 class ContentGrouping(BaseModel):
-    index: str
-    name: str
+    index: str | None = None
+    name: str | None = None
 
 
 class Price(BaseModel):
-    real: int
-    discounted: float
+    real: int | None = None
+    discounted: float | None = None
 
 
 class VideoUrl(BaseModel):
-    lq: HttpUrl
-    hq: HttpUrl
-    caption: str
+    lq: HttpUrl | None = None
+    hq: HttpUrl | None = None
+    caption: str | None = None
 
 
 class CategoryParent(BaseModel):
     id: int
-    title: str
-    slug: str
+    title: str | None = None
+    slug: str | None = None
     cover: Optional[HttpUrl] = None
     parent: Optional[Any] = None
     obj_hash: Optional[str] = None
@@ -53,89 +52,89 @@ class CategoryParent(BaseModel):
 
 class Category(BaseModel):
     id: int
-    title: str
-    slug: str
+    title: str | None = None
+    slug: str | None = None
     cover: Optional[HttpUrl] = None
-    parent: CategoryParent
-    obj_hash: str
-    obj_type: str
+    parent: CategoryParent | None = None
+    obj_hash: str | None = None
+    obj_type: str | None = None
 
 
 class Faq(BaseModel):
     id: int
-    type: str
-    type_text: str
-    question: str
-    answer: str
+    type: str | None = None
+    type_text: str | None = None
+    question: str | None = None
+    answer: str | None = None
 
 
 class Teacher(BaseModel):
     description: str
-    full_name: str
-    image_url: HttpUrl
-    landing_view: bool
-    slug: str
-    teacher_id: int
-    student_count: int
-    course_count: int
-    id: int
-    obj_hash: str
-    obj_type: str
+    full_name: str | None = None
+    image_url: HttpUrl | None = None
+    landing_view: bool | None = None
+    slug: str | None = None
+    teacher_id: int | None = None
+    student_count: int | None = None
+    course_count: int | None = None
+    id: int | None = None
+    obj_hash: str | None = None
+    obj_type: str | None = None
 
 
 class CourseFeature(BaseModel):
     id: int
-    modified_date: str
-    created_date: str
-    title: str
-    description: str
-    tiny_title: str
-    tiny_description: str
-    image: HttpUrl
-    importance: int
-    pricing_pop_up: bool
+    modified_date: str | None = None
+    created_date: str | None = None
+    title: str | None = None
+    description: str | None = None
+    tiny_title: str | None = None
+    tiny_description: str | None = None
+    image: HttpUrl | None = None
+    importance: int | None = None
+    pricing_pop_up: bool | None = None
 
 
 class MetaData(BaseModel):
-    indexing: bool
-    title: str
-    description: str
+    indexing: bool | None = None
+    title: str | None = None
+    description: str | None = None
     keywords: Optional[str] = None
-    og_title: str
-    og_description: str
-    og_image: HttpUrl
-    og_video: HttpUrl
-    price: int
-    product_id: int
-    canonical_address: HttpUrl
+    og_title: str | None = None
+    og_description: str | None = None
+    og_image: HttpUrl | None = None
+    og_video: HttpUrl | None = None
+    price: int | None = None
+    product_id: int | None = None
+    canonical_address: HttpUrl | None = None
 
 
 class CareerOrganization(BaseModel):
-    slug: str
-    name: str
-    image_url: HttpUrl
-    id: int
-    obj_hash: str
-    obj_type: str
+    slug: str | None = None
+    name: str | None = None
+    image_url: HttpUrl | None = None
+    id: int | None = None
+    obj_hash: str | None = None
+    obj_type: str | None = None
 
 
 class CareerTeacher(BaseModel):
-    slug: str
-    full_name: str
-    teacher_id: int
-    landing_view: bool
-    id: int
-    obj_hash: str
-    obj_type: str
+    slug: str | None = None
+    full_name: str | None = None
+    teacher_id: int | None = None
+    landing_view: bool | None = None
+    id: int | None = None
+    obj_hash: str | None = None
+    obj_type: str | None = None
 
 
 class CareerSpecifics(BaseModel):
-    courses_count: int
+    courses_count: int | None = None
 
 
 class CareerCategoryParent(BaseModel):
-    title: str
-    slug: str
+    title: str | None = None
+    slug: str | None = None
     cover: Optional[HttpUrl] = None
     parent: Optional[Any] = None
     id: int
@@ -144,47 +143,47 @@ class CareerCategoryParent(BaseModel):
 
 
 class CareerCategory(BaseModel):
-    title: str
-    slug: str
+    title: str | None = None
+    slug: str | None = None
     cover: Optional[HttpUrl] = None
     parent: CareerCategoryParent
     id: int
-    obj_hash: str
-    obj_type: str
+    obj_hash: str | None = None
+    obj_type: str | None = None
 
 
 class Career(BaseModel):
-    slug: str
-    title: str
-    slug_id: int
-    prices: Price
-    discount: float
-    image_url: HttpUrl
-    description: str
-    units_count: int
-    required_hours: int
-    no_of_students: int
-    main_category: CareerCategory
-    organization: CareerOrganization
-    teachers: List[CareerTeacher]
-    specifics: CareerSpecifics
+    slug: str | None = None
+    title: str | None = None
+    slug_id: int | None = None
+    prices: Price | None = None
+    discount: float | None = None
+    image_url: HttpUrl | None = None
+    description: str | None = None
+    units_count: int | None = None
+    required_hours: int | None = None
+    no_of_students: int | None = None
+    main_category: CareerCategory | None = None
+    organization: CareerOrganization | None = None
+    teachers: List[CareerTeacher] = []
+    specifics: CareerSpecifics | None = None
     id: int
-    obj_hash: str
-    obj_type: str
+    obj_hash: str | None = None
+    obj_type: str | None = None
 
 
 class Action(BaseModel):
-    call_to_action: str
-    call_to_action_text: str
+    call_to_action: str | None = None
+    call_to_action_text: str | None = None
 
 
 class Label(BaseModel):
-    key: str
-    value: str
+    key: str | None = None
+    value: str | None = None
 
 
 class Labels(BaseModel):
-    main: Optional[Label]
+    main: Optional[Label] = None
     business: Optional[Label] = None
 
 
@@ -196,38 +195,38 @@ class CourseModel(BaseModel):
     title: str
     heading: str
     type: str
-    has_rate: bool
-    can_rate: bool
-    avg_rating: float
+    has_rate: bool = False
+    can_rate: bool = False
+    avg_rating: float | None = None
     poster: HttpUrl
-    extra_description: str
+    extra_description: str = ""
     content_grouping: ContentGrouping
-    course_effort_time: str
+    course_effort_time: str = ""
     required_hours: int | str
     content_hours: int | str
     project_hours: int | str
-    purchase_expire_duration: int
-    validation_threshold: float
-    required_projects: bool
-    ongoing: bool
-    versioning_info: List
-    prices: Price
-    auto_examination: int
-    internal_links: List
-    certif_organization: Organization
-    publisher: Organization
-    content_rate_count: int
-    content_approval: int
-    publish_status: str
-    is_downloadable: str
-    certification: bool
-    business_certification: bool
+    purchase_expire_duration: int | str
+    validation_threshold: float | str
+    required_projects: bool = False
+    ongoing: bool = False
+    versioning_info: List = []
+    prices: Price | None = None
+    auto_examination: int | str
+    internal_links: List = []
+    certif_organization: Organization | None = None
+    publisher: Organization | None = None
+    content_rate_count: int | str
+    content_approval: int | str
+    publish_status: str = "published"
+    is_downloadable: str | bool = "yes"
+    certification: bool = False
+    business_certification: bool = False
     image: HttpUrl
     image_thumbnail_url: HttpUrl
-    view_access: int
+    view_access: int | str
     view_access_text: str
-    has_review: bool
-    has_subtitle: bool
+    has_review: bool = False
+    has_subtitle: bool = False
     description: str
     prerequisite_course: List
     video_url: VideoUrl
@@ -237,7 +236,7 @@ class CourseModel(BaseModel):
     faq_structured_data: Optional[str] = None
     free_units_count: int
     units_count: int
-    course_faq: List
+    course_faq: List = []
     general_faq: List[Faq]
     course_progress: Optional[Any] = None
     teachers: List[Teacher]
@@ -279,9 +278,9 @@ class Unit(BaseModel):
     status: bool
     type: str
     effort_time_in_minutes: str
-    effort_time: float
-    unit_worth: float
-    indexing: bool
+    effort_time: float | str
+    unit_worth: float | str
+    indexing: bool = False
     user_score: Optional[float] = None
 
 
@@ -292,7 +291,7 @@ class Chapter(BaseModel):
     units_count: int
     total_effort_time: Optional[str]
     total_lecture_effort_time: Optional[str]
-    worth: float
+    worth: float | str
     desc: str
     locked: bool
     progress: int | float
@@ -301,7 +300,7 @@ class Chapter(BaseModel):
 
 
 class CourseChaptersModel(BaseModel):
-    total_worth: float
+    total_worth: float | str
     chapters: List[Chapter]
 
 

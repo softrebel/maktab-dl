@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="maktab-dl",
-    version="0.3.0",
+    version="0.4.0",
     description="A simple downloader videos from maktabkhooneh",
     author="Mohammadreza Shaghouzi",
     author_email="sh.mohammad66@gmail.com.com",

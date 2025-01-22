@@ -166,6 +166,8 @@ class MaktabkhoonehCrawler:
 
     def _clean_course_link(self, link: str) -> str:
         logging.info(f"Cleaning course link: {link}")
+        if not link.startswith("https://"):
+            link = "https://" + link.replace("http://", "")
         cleaned = link.split("?")[0].split("#")[0]
         # add / to end if not have
         if cleaned[-1] != "/":
