@@ -56,6 +56,11 @@ Here are some examples of how to use `maktab-dl`:
     ```bash
     maktab-dl download -u <your_course_url>
     ```
+    for example:
+    ```bash
+    maktab-dl download -u https://maktabkhooneh.org/course/آموزش-سی-شارپ-c-mk9558/
+    ```
+
 
 2.  **Download with custom cookies and output directories:**
 
