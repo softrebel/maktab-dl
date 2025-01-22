@@ -1,7 +1,6 @@
 import os
 import json
 import pathlib
-import pickle
 from lxml.html import Element
 import re
 from pydantic import BaseModel
