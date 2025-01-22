@@ -5,24 +5,21 @@ A command-line tool to download videos from Maktabkhooneh courses.
 
 ## Installation
 
+
+1. **Install using pip**
+
+   ```bash
+   pip install maktab-dl
+   ```
+
 1. **Clone the Repository (Optional):**
 
    If you have access to the repository, you can clone it:
 
    ```bash
-   git clone <repository_url>
-   cd maktab-dl
-   ```
-
-2. **Install using pip**
-
-   ```bash
-   pip install .
-   ```
-   or
-
-   ```bash
-    pip install -e .
+   > git clone https://github.com/softrebel/maktab-dl.git
+   > cd maktab-dl
+   > pip install .
    ```
 
 ## Usage
