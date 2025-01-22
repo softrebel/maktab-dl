@@ -12,14 +12,14 @@ from pydantic import ValidationError
 def save_cookies(client, filepath):
     # Convert cookies to a dictionary
     cookies_dict = {cookie.name: cookie.value for cookie in client.cookies.jar}
-    with open(filepath, "wb") as file:
-        pickle.dump(cookies_dict, file)
+    with open(filepath, "w", encoding="utf-8") as file:
+        json.dump(cookies_dict, file)
 
 
 # Load cookies from a file
 def load_cookies(client, filepath):
-    with open(filepath, "rb") as file:
-        cookies_dict = pickle.load(file)
+    with open(filepath, "r", encoding="utf-8") as file:
+        cookies_dict = json.load(file)
     # Load cookies into the client
     for name, value in cookies_dict.items():
         client.cookies.set(name, value)
@@ -119,7 +119,7 @@ def get_cookies_default_file_path():
     Constructs the full path to cookie file in package dir.
     """
     package_dir = get_package_file_path()
-    return os.path.join(package_dir, "cookies")
+    return os.path.join(package_dir, "cookies.json")
 
 
 def get_user_default_path():
