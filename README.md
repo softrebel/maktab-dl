@@ -123,11 +123,12 @@ Here are some examples of how to use `maktab-dl`:
 ## Dependencies
 
 -   `httpx`: Used for making HTTP requests.
--   `pydantic`: Used for
+-   `pydantic`: Used for validating response params.
+-   `tqdm`: Used for display download progress bar in output.
 -   `lxml`: Used for parsing HTML content.
--   `appdirs`: Used for finding user specific os paths.
+
 
 ## Important Notes
 
--   This script requires a Maktabkhooneh account to download courses.
+-   This script requires a Maktabkhooneh account and access to specific course to download it.
 -   The script will create output directory automatically when you are saving videos there.
