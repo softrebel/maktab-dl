@@ -122,8 +122,8 @@ Here are some examples of how to use `maktab-dl`:
 
 ## Dependencies
 
--   `requests`: Used for making HTTP requests.
--   `beautifulsoup4`: Used for parsing HTML content.
+-   `httpx`: Used for making HTTP requests.
+-   `lxml`: Used for parsing HTML content.
 -  `appdirs`: Used for finding user specific os paths.
 
 ## Important Notes
