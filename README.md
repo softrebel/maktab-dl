@@ -1,6 +1,6 @@
 
 # maktab-dl
-
+![maktabkhooneh downloader](./assets/logo_designed_by_DALL·E.webp)
 A command-line tool to download videos from Maktabkhooneh courses.
 
 ## Installation
@@ -123,13 +123,11 @@ Here are some examples of how to use `maktab-dl`:
 ## Dependencies
 
 -   `httpx`: Used for making HTTP requests.
+-   `pydantic`: Used for
 -   `lxml`: Used for parsing HTML content.
--  `appdirs`: Used for finding user specific os paths.
+-   `appdirs`: Used for finding user specific os paths.
 
 ## Important Notes
 
 -   This script requires a Maktabkhooneh account to download courses.
 -   The script will create output directory automatically when you are saving videos there.
-
-This documentation should provide a good starting point for users of your `maktab-dl` package. Let me know if you have any other questions!
-
