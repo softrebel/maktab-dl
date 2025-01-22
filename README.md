@@ -14,7 +14,7 @@ A command-line tool to download videos from Maktabkhooneh courses.
    cd maktab-dl
    ```
 
-2.  **Install using pip**
+2. **Install using pip**
 
    ```bash
    pip install .
@@ -73,20 +73,20 @@ Here are some examples of how to use `maktab-dl`:
 
 4.  **When cookies is not valid:**
 
-   If you run the script with invalid cookie file, it will ask you to login again
+    If you run the script with invalid cookie file, it will ask you to login again
 
-   ```bash
-   maktab-dl download -u <your_course_url> -c /path/to/my/invalid_cookie.json
+    ```bash
+    maktab-dl download -u <your_course_url> -c /path/to/my/invalid_cookie.json
     ```
 
-5.  **Using relative path for cookies**
+6.  **Using relative path for cookies**
 
     ```bash
     maktab-dl download -u <your_course_url> -c ./my_cookies.json -o ./videos
     ```
     This command will save the cookies in current directory and video in the videos subdirectory.
 
-6.  **Help Message:**
+7.  **Help Message:**
 
     To see the available options and usage information, run:
 
