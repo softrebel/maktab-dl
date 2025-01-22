@@ -166,7 +166,7 @@ class MaktabkhoonehCrawler:
 
     def _clean_course_link(self, link: str) -> str:
         logging.info(f"Cleaning course link: {link}")
-        cleaned = link.split("?")[0].replace("#chapter", "")
+        cleaned = link.split("?")[0].split("#")[0]
         # add / to end if not have
         if cleaned[-1] != "/":
             cleaned += "/"
