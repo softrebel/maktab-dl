@@ -1,6 +1,6 @@
 
 # maktab-dl
-![maktabkhooneh downloader](./assets/logo_designed_by_DALL·E.webp)
+![maktabkhooneh downloader](https://raw.githubusercontent.com/softrebel/maktab-dl/refs/heads/main/assets/logo_designed_by_DALL%C2%B7E.webp)
 A command-line tool to download videos from Maktabkhooneh courses.
 
 ## Installation
