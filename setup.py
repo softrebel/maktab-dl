@@ -16,7 +16,7 @@ setup(
     ],
     entry_points={
         "console_scripts": [
-            "maktab-dl=maktab_dl.cli:main",
+            "maktab-dl=maktab_dl.cli:cli",
         ],
     },
 )
