@@ -1,6 +1,6 @@
 [project]
 name = "maktab-dl"
-version = "0.1.0"
+version = "0.2.0"
 authors = [
   { name="Mohammadreza Shaghouzi", email="sh.mohammad66@yahoo.com" }
 ]
@@ -11,7 +11,6 @@ dependencies = [
     "httpx>=0.28.1",
     "pydantic>=2.10.5",
     "lxml>=5.3.0",
-    "click>=8.1.8",
     "tqdm>=4.67.1",
 ]
 
@@ -21,7 +20,7 @@ BugTracker = "https://github.com/softrebel/maktab-dl/issues"
 Repository = "https://github.com/softrebel/maktab-dl"
 
 [project.scripts]
-maktab-dl = "maktab_dl.cli:cli"
+maktab-dl = "maktab_dl.cli:main"
 
 [tool.uv]
 dev-dependencies = [

@@ -458,7 +458,6 @@ name = "maktab-dl"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
-    { name = "click" },
     { name = "httpx" },
     { name = "lxml" },
     { name = "pydantic" },
@@ -475,7 +474,6 @@ dev = [
 
 [package.metadata]
 requires-dist = [
-    { name = "click", specifier = ">=8.1.8" },
     { name = "httpx", specifier = ">=0.28.1" },
     { name = "lxml", specifier = ">=5.3.0" },
     { name = "pydantic", specifier = ">=2.10.5" },

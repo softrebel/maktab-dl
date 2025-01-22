@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="maktab-dl",
-    version="0.1.0",
+    version="0.2.0",
     description="A simple downloader videos from maktabkhooneh",
     author="Mohammadreza Shaghouzi",
     author_email="sh.mohammad66@gmail.com.com",
@@ -11,12 +11,11 @@ setup(
         "httpx",
         "pydantic",
         "lxml",
-        "click",
         "tqdm",
     ],
     entry_points={
         "console_scripts": [
-            "maktab-dl=maktab_dl.cli:cli",
+            "maktab-dl=maktab_dl.cli:main",
         ],
     },
 )
