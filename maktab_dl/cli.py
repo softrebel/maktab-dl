@@ -3,9 +3,11 @@ import os
 from maktab_dl.handler import MaktabkhoonehCrawler
 from maktab_dl.utils import (
     get_cookies_default_file_path,
-    get_user_default_path,
     get_boolean_manual,
 )
+
+cookies_default_path = get_cookies_default_file_path()
+output_default_path = os.getcwd()
 
 
 @click.group()
@@ -27,15 +29,15 @@ def cli():
     "--cookies",
     required=False,
     type=str,
-    default=get_cookies_default_file_path(),
-    help="Path to the cookies file",
+    default=cookies_default_path,
+    help=f"Path to the cookies file [Default: {cookies_default_path}]",
 )
 @click.option(
     "--output",
     required=False,
     type=str,
-    default=get_user_default_path(),
-    help="Path to the output directory",
+    default=output_default_path,
+    help=f"Path to the output directory [Default: {output_default_path}]",
 )
 def download(url: str, cookies: str, output: str):
     """Loads course information from a url and downloads videos for that course."""

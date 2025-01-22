@@ -21,7 +21,7 @@ def setup_logging(log_file="maktab_dl.log", log_level=logging.INFO):
 
     # Formatter for logs
     formatter = logging.Formatter(
-        fmt="%(asctime)s - %(levelname)s - %(name)s - %(message)s",
+        fmt="%(asctime)s - %(message)s",
         datefmt="%Y-%m-%d %H:%M:%S",
     )
 
