@@ -1,7 +1,4 @@
 import logging
-import os
-from logging.handlers import RotatingFileHandler
-from maktab_dl.utils import get_user_default_path
 
 
 # Define a function to set up logging
@@ -13,10 +10,6 @@ def setup_logging(log_file="maktab_dl.log", log_level=logging.INFO):
         log_file (str): Path to the log file.
         log_level (int): Logging level (e.g., logging.DEBUG, logging.INFO).
     """
-    # Ensure the directory exists for the log file
-
-    package_dir = get_user_default_path()
-    log_dir = os.path.join(package_dir, log_file)
 
     # Configure httpx logging to avoid spamming logs
     logging.getLogger("httpx").setLevel(logging.WARNING)
@@ -38,13 +31,18 @@ def setup_logging(log_file="maktab_dl.log", log_level=logging.INFO):
     console_handler.setFormatter(formatter)
     logger.addHandler(console_handler)
 
+    # TODO: Add FileHandler for logging to a file
+    # Ensure the directory exists for the log file
+    # package_dir = get_user_default_path()
+    # log_dir = os.path.join(package_dir, log_file)
+
     # File Handler with rotation
-    file_handler = RotatingFileHandler(
-        log_dir, maxBytes=5 * 1024 * 1024, backupCount=5, encoding="UTF-8"
-    )
-    file_handler.setLevel(log_level)
-    file_handler.setFormatter(formatter)
-    logger.addHandler(file_handler)
+    # file_handler = RotatingFileHandler(
+    #     log_dir, maxBytes=5 * 1024 * 1024, backupCount=5, encoding="UTF-8"
+    # )
+    # file_handler.setLevel(log_level)
+    # file_handler.setFormatter(formatter)
+    # logger.addHandler(file_handler)
 
 
 # Initialize logging
