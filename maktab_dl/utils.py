@@ -110,7 +110,7 @@ def get_package_file_path():
     """
     Constructs the full path to package dir.
     """
-    package_dir = pathlib.Path(__file__).parent.parent.resolve()
+    package_dir = pathlib.Path(__file__).parent.resolve()
     return package_dir
 
 
