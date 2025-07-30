@@ -24,17 +24,27 @@ A command-line tool to download videos from Maktabkhooneh courses.
 
 ## Usage
 
-The `maktab-dl` tool provides a `download` subcommand for downloading course videos.
+The `maktab-dl` tool provides two subcommands: `login` and `download`.
 
 ```bash
-maktab-dl download [options]
+maktab-dl [command] [options]
 ```
 
-### Command
+### Commands
 
+- `login`: This subcommand is used to login to Maktabkhooneh and save cookies for future use.
 - `download`: This subcommand is used to download course videos.
 
 ### Options
+
+#### Login Command Options
+
+The `login` subcommand accepts the following options:
+
+- `-c`, `--cookies` (Optional): The path to the cookies file. Defaults to a `cookies.json` file in a suitable user data directory as specified by `appdirs` package.
+- `-o`, `--output` (Optional): The path to the output directory. Defaults to the current directory the script is called from.
+
+#### Download Command Options
 
 The `download` subcommand accepts the following options:
 
@@ -46,7 +56,21 @@ The `download` subcommand accepts the following options:
 
 Here are some examples of how to use `maktab-dl`:
 
-1.  **Basic Download with Default Options:**
+1.  **Login to Maktabkhooneh:**
+
+    Login to Maktabkhooneh and save cookies for future use:
+
+    ```bash
+    maktab-dl login
+    ```
+
+    Or with custom cookies path:
+
+    ```bash
+    maktab-dl login -c /path/to/my/cookies.json
+    ```
+
+2.  **Basic Download with Default Options:**
 
     If you have saved cookies, it will automatically use it to download the course video. This will save the course in the current directory
 
@@ -59,13 +83,13 @@ Here are some examples of how to use `maktab-dl`:
     ```
 
 
-2.  **Download with custom cookies and output directories:**
+3.  **Download with custom cookies and output directories:**
 
     ```bash
     maktab-dl download -u <your_course_url> -c /path/to/my/cookies.json -o /path/to/my/output
     ```
 
-3.  **First time login and save cookies:**
+4.  **First time login and save cookies:**
 
     If you run this command and cookies file does not exist in the defined path, it will ask username, password, and confirmation to save cookies.
 
@@ -73,7 +97,7 @@ Here are some examples of how to use `maktab-dl`:
     maktab-dl download -u <your_course_url> -c /path/to/my/cookies.json
     ```
 
-4.  **When cookies is not valid:**
+5.  **When cookies is not valid:**
 
     If you run the script with invalid cookie file, it will ask you to login again
 

@@ -1,5 +1,7 @@
 import argparse
 import os
+from httpx import HTTPStatusError
+
 from maktab_dl.handler import MaktabkhoonehCrawler
 from maktab_dl.utils import (
     get_cookies_default_file_path,
@@ -49,11 +51,62 @@ def main():
         default=output_default_path,
         help=f"Path to the output directory [Default: {output_default_path}]",
     )
+
+    # Login Subcommand
+    login_parser = subparsers.add_parser(
+        "login", help="Login to Maktabkhooneh and save cookies"
+    )
+    login_parser.add_argument(
+        "-c",
+        "--cookies",
+        required=False,
+        type=str,
+        default=cookies_default_path,
+        help=f"Path to the cookies file [Default: {cookies_default_path}]",
+    )
+    login_parser.add_argument(
+        "-o",
+        "--output",
+        required=False,
+        type=str,
+        default=output_default_path,
+        help=f"Path to the output directory [Default: {output_default_path}]",
+    )
     args = parser.parse_args()
 
     if args.command == "download":
         download_videos(args.url, args.cookies, args.output)
+    elif args.command == "login":
+        login(args.cookies, args.output)
 
+
+def login(cookies: str, output: str):
+    """Login to Maktabkhooneh and save cookies."""
+    print("You must Enter Maktabkhooneh Username and Password.")
+    username = input("Enter Username: ")
+    password = input("Enter Password: ")
+    crawler = MaktabkhoonehCrawler(
+        username=username,
+        password=password,
+        cookies_path=cookies,
+        output_path=output,
+    )
+
+    force_save_cookies = get_boolean_manual(
+        f"If you want to save cookies on the path `{cookies}` you selected?"
+    )
+    crawler.login(force_save_cookies=force_save_cookies)
+    print("Login process finished.")
+
+
+def check_cookies_is_ok(cookies: str):
+    crawler = MaktabkhoonehCrawler(
+        cookies_path=cookies,
+    )
+    crawler.init_cookies()
+    if len(crawler.client.cookies.jar) == 0:
+        raise Exception("No Cookies.")
+    crawler.check_auth_is_ok()
 
 def download_videos(url: str, cookies: str, output: str):
     """Loads course information from a URL and downloads videos for that course."""
@@ -76,15 +129,19 @@ def download_videos(url: str, cookies: str, output: str):
             )
             crawler.login(force_save_cookies=force_save_cookies)
         else:
-            crawler = MaktabkhoonehCrawler(
+
+            try:
+                check_cookies_is_ok(cookies)
+            except Exception as e:
+                print(str(e))
+                print("Please login again.")
+                return
+
+        crawler = MaktabkhoonehCrawler(
                 cookies_path=cookies,
                 output_path=output,
             )
-            crawler.init_cookies()
-            if len(crawler.client.cookies.jar) == 0:
-                print("No Cookies. Please login first.")
-                return
-
+        crawler.init_cookies()
         course_info = crawler.crawl_course_link(input_link=url)
         cleaned_link = course_info.link
         crawler.enroll_course_link(cleaned_link)
