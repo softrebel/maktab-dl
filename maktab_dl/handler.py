@@ -24,6 +24,7 @@ import time
 class MaktabkhoonehCrawler:
     name: str = "Maktabkhooneh"
     BASE_URL: str = "https://maktabkhooneh.org"
+    BASE_API_URL: str = "https://maktabkhooneh.org/api/v1"
     AUTH_API_URL: str = "https://maktabkhooneh.org/api/v1/auth"
     COURSE_API_URL: str = "https://maktabkhooneh.org/api/v1/courses"
 
@@ -90,6 +91,8 @@ class MaktabkhoonehCrawler:
         data: dict | None = None,
         files: list | None = None,
     ):
+        errors = []
+        response: httpx.Response | None = None
         for i in range(3):
             try:
                 response = self.client.request(
@@ -115,7 +118,13 @@ class MaktabkhoonehCrawler:
             except Exception as e:
                 print(f"Error in url {url}")
                 print(e)
+                errors.append(str(e))
                 continue
+        if response is None:
+            logging.error(f"Failed to request {url} after 3 attempts. Errors: {errors}")
+            raise Exception(
+                f"Failed to request {url} after 3 attempts. Errors: {errors}"
+            )
         response.raise_for_status()
         return response
 
@@ -164,6 +173,16 @@ class MaktabkhoonehCrawler:
         if force_save_cookies:
             save_cookies(self.client, self.cookies_path)
         return self.user_info
+
+    def check_auth_is_ok(self) -> bool:
+        logging.info("Checking if user is authenticated")
+        url = f"{self.BASE_API_URL}/general/core-data/?profile=1"
+        response = self.request(url=url)
+        response.raise_for_status()
+        data = response.json()
+        if "profile" not in data or data["profile"] is None:
+            raise Exception("User is not authenticated")
+        return True
 
     def _clean_course_link(self, link: str) -> str:
         logging.info(f"Cleaning course link: {link}")
