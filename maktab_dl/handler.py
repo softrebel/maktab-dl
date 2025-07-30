@@ -4,6 +4,7 @@ from maktab_dl.utils import (
     load_cookies,
     sanitize_filename,
     get_cookies_default_file_path,
+    generate_html,
 )
 import logging
 from maktab_dl.schemas import (
@@ -371,7 +372,7 @@ class MaktabkhoonehCrawler:
         res: bool = False
         subtitle_link = self._extract_subtitle_link(response_text)
         if subtitle_link:
-            ext = subtitle_link.split("?")[0].split(".")[-1]
+            ext = subtitle_link.split("?")[-1].split(".")[-1]
             # url is relative
             subtitle_url = f"{self.BASE_URL}{subtitle_link}"
             unit_subtitle_path = f"{chapter_directory}{os.sep}{unit_name}.{ext}"
@@ -431,6 +432,26 @@ class MaktabkhoonehCrawler:
         logging.info(f"Downloading video finished: {video_url}")
         return res
 
+    def _extract_content(self, response_text: str) -> str | None:
+        html = lxml.html.fromstring(response_text)
+        contents = html.xpath('//div[contains(@class,"unit-content ")]')
+        if not contents or len(contents) == 0:
+            return None
+        content = contents[0]
+        content = lxml.html.tostring(content, encoding="utf-8").decode("utf-8")
+        return content
+
+    def _handle_assignment_project(
+        self, response_text: str, chapter_directory: str, unit_name: str
+    ):
+        content = self._extract_content(response_text)
+        if content:
+            html = generate_html(title=unit_name, content=content)
+            unit_content_path = f"{chapter_directory}{os.sep}{unit_name}.html"
+            with open(unit_content_path, "w", encoding="utf-8") as f:
+                f.write(html)
+            logging.info(f"Assignment/Project content saved to: {unit_content_path}")
+
     def download_course_videos(self, course_info: CourseInfo, max_threads: int = 1):
         # To download videos in parallel, we can use the ThreadPoolExecutor class from the concurrent.futures module.
 
@@ -466,18 +487,24 @@ class MaktabkhoonehCrawler:
                     unit_type: str = unit.type
                     unit_name: str = f"{j + 1}_{sanitize_filename(unit_title)}"
 
-                    if unit_type != "lecture":
-                        logging.info(
-                            f"Skipping unit: {unit_title} as it is not a lecture: {unit_type}"
-                        )
-                        continue
-
                     unit_url = f"{course_link}{chapter_url}/{unit_slug}/"
                     logging.info(f"Geting Page unit started: {unit_url}")
                     response = self.request(url=unit_url)
                     response.raise_for_status()
                     response_text = response.text
                     logging.info(f"Geting Page unit finished: {unit_url}")
+
+                    if unit_type != "lecture":
+                        logging.info(
+                            f"Skipping unit: {unit_title} as it is not a lecture: {unit_type}"
+                        )
+                        self._handle_assignment_project(
+                            response_text=response_text,
+                            chapter_directory=chapter_directory,
+                            unit_name=unit_name,
+                        )
+                        continue
+
                     has_attachment: bool = unit.attachment
                     if has_attachment:
                         logging.info("Handling attachment")

@@ -137,3 +137,34 @@ def get_boolean_manual(prompt):
             return False
         else:
             print("Invalid input. Please enter 'yes' or 'no'.")
+
+
+def generate_html(title, content):
+    html = """
+    <!DOCTYPE html>
+    <html lang="fa" dir="rtl">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{title}</title>
+
+    </head>
+    <body>
+
+    {content}
+    """.format(title=title, content=content)
+    html += """
+    <style>
+        body {
+            font-family: 'Vazir', sans-serif;
+            font-size: 16px;
+            line-height: 1.5;
+            color: #333;
+            direction: rtl;
+            text-align: right;
+        }
+    </style>
+    </body>
+    </html>
+    """
+    return html
