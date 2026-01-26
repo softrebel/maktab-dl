@@ -289,8 +289,8 @@ class Chapter(BaseModel):
     title: str = ""
     slug: str = ""
     units_count: int = 0
-    total_effort_time: Optional[str] = "0"
-    total_lecture_effort_time: Optional[str] = "0"
+    total_effort_time: Optional[Union[str, float]] = "0"
+    total_lecture_effort_time: Optional[Union[str, float]] = "0" 
     worth: float | str = 0
     desc: str = ""
     locked: bool = False
